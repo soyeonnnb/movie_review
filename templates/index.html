@@ -1,17 +1,84 @@
-{% for o in obj %}
-<a href="{% url 'movie_project:detail' o.id %}">영화 상세 보기</a><br>
-{{o.original_title}}<br>
-<img src='https://image.tmdb.org/t/p/w500{{o.poster_path}}'>
-<img src='https://image.tmdb.org/t/p/w500{{o.backdrop_path}}'><br>
-{{o.vote_average}}<br>
-{{o.overview}}<br>
-{{o.title}}<br>
-{{o.id}}<br>
-<br><br>
-{% endfor %}
+{% extends 'base.html' %}
+{% load static %}
+{% block title_name %}영화레뷰{% endblock title_name %}
+{% block content %}
+<header class="masthead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+        <!-- Masthead Avatar Image-->
+        <img class="masthead-avatar mb-5" src="{% static 'assets/img/avataaars.svg' %}" alt="..." />
+        <!-- Masthead Heading-->
+        <h1 class="masthead-heading text-uppercase mb-0">영화레뷰에 오신 것을 환영합니다.</h1>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- Masthead Subheading-->
+        <p class="masthead-subheading font-weight-light mb-0">영화 검색 및 리뷰</p>
+    </div>
+</header>
+<!-- Portfolio Section-->
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <!-- Portfolio Section Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">최신 영화</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- Portfolio Grid Items-->
+        <div class="row justify-content-center">
+            <!-- Portfolio Item 1-->
+            {% for o in obj %}
+            <div class="col-md-6 col-lg-4 mb-5">
 
-<form action="" method="POST">
-    {% csrf_token %}
-    {{form}}
-    <input type="submit" value="submit">
-</form>
+                <a href="{% url 'movie_project:detail' o.id %}">
+                    <div class="portfolio-item mx-auto" data-bs-toggle="modal">
+                        <img class="img-fluid" src='https://image.tmdb.org/t/p/w500{{o.poster_path}}' alt="...">
+                        <div
+                            class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+
+                            <div class="portfolio-item-caption-content text-center  text-white">
+                                <h4>{{o.original_title}}</h4><br>
+                                <i class="fas fa-star"></i> {{o.vote_average}}<br>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- About Section-->
+<section class="page-section bg-primary text-white mb-0" id="about">
+    <div class="container">
+        <!-- About Section Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-white">Search</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Section Content-->
+        <div class="row">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="text-center mt-4">
+
+                    <h3>{{form.search}}</h3>
+                </div>
+                <div class="text-center mt-4">
+                    <input type="submit" value="submit" class="btn btn-xl btn-outline-light">
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

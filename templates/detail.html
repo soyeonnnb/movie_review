@@ -1,1 +1,46 @@
-{{resdata}}
+{% extends 'base.html' %}
+{% load static %}
+{% block title_name %}{{obj.original_title}}{% endblock title_name %}
+{% block content %}
+<br><br><br>
+<!-- Portfolio Section-->
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <!-- Portfolio Section Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">{{obj.title}}
+        </h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- Portfolio Grid Items-->
+        <div class="row justify-content-center">
+            <div class="d-flex align-items-center w-50" style=" float: left;">
+                <img class="img-fluid rounded-3 w-100" src='https://image.tmdb.org/t/p/w500{{obj.poster_path}}' alt="
+                    ...">
+            </div>
+            <div class="col-md-6 align-items-center justify-content-center" style=" float: right;">
+                <div class="align-items-center ">
+                    <h3>제목: {{obj.title}}</h3><br>
+                    <h4>평점: {{obj.vote_average}}</h4><br>
+                    <h4>장르: {% for g in obj.genres %}
+                        {{g.name}}
+                        {% endfor %}</h4><br>
+                    <h4>상영시간: {{obj.runtime}}분</h4><br>
+                    <h4>개봉일: {{obj.release_date}}</h4><br>
+                    <p>줄거리: {{obj.overview}}</p><br>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center" style="margin-top:30px;">
+            <a href="{{obj.homepage}}" target="_blank" style="text-align:center; ">
+                <button class="btn-lg " style="background-color:rgb(71, 192, 126); color:white; border-style:none;">사이트로
+                    바로가기</button>
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,11 +1,47 @@
-{% for o in obj %}
-<a href="{% url 'movie_project:detail' o.id %}">영화 상세 보기</a><br>
-{{o.original_title}}<br>
-<img src='https://image.tmdb.org/t/p/w500{{o.poster_path}}'>
-<img src='https://image.tmdb.org/t/p/w500{{o.backdrop_path}}'><br>
-{{o.vote_average}}<br>
-{{o.overview}}<br>
-{{o.title}}<br>
-{{o.id}}<br>
-<br><br>
-{% endfor %}
+{% extends 'base.html' %}
+{% load static %}
+{% block title_name %}영화 검색 | {{search_word}}{% endblock title_name %}
+{% block content %}
+
+<br>
+<br>
+<br>
+<!-- Portfolio Section-->
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <!-- Portfolio Section Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">'{{search_word}}'(으)로 검색한 내용입니다
+        </h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- Portfolio Grid Items-->
+        <div class="row justify-content-center">
+            <!-- Portfolio Item 1-->
+            {% for o in obj %}
+            <div class="col-md-6 col-lg-4 mb-5">
+
+                <a href="{% url 'movie_project:detail' o.id %}">
+                    <div class="portfolio-item mx-auto" data-bs-toggle="modal">
+                        <img class="img-fluid" src='https://image.tmdb.org/t/p/w500{{o.poster_path}}' alt="...">
+                        <div
+                            class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+
+                            <div class="portfolio-item-caption-content text-center  text-white">
+                                <h4>{{o.original_title}}</h4><br>
+                                <i class="fas fa-star"></i> {{o.vote_average}}<br>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

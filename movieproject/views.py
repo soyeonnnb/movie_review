@@ -22,7 +22,9 @@ def home(request):
             resdata = response.text
             obj = json.loads(resdata)
             obj = obj["results"]
-            return render(request, "search.html", {"obj": obj})
+            return render(
+                request, "search.html", {"obj": obj, "search_word": search_word}
+            )
     else:
         form = SearchForm()
         url = "https://api.themoviedb.org/3/trending/movie/week?api_key=" + API_KEY
@@ -37,4 +39,11 @@ def detail(request, movie_id):
     url = "https://api.themoviedb.org/3/movie/" + movie_id + "?api_key=" + API_KEY
     response = requests.get(url)
     resdata = response.text
-    return render(request, "detail.html", {"resdata": resdata})
+    obj = json.loads(resdata)
+    return render(
+        request,
+        "detail.html",
+        {
+            "obj": obj,
+        },
+    )
